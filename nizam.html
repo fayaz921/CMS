@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistani Wedding Invitation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        .invitation-container {
+            width: 100%;
+            max-width: 1000px;
+            perspective: 1200px;
+        }
+        
+        .invitation-card {
+            background: linear-gradient(135deg, #fef9f3 0%, #f8f4ed 100%);
+            border-radius: 8px;
+            box-shadow: 
+                0 25px 60px rgba(0,0,0,0.4),
+                0 10px 30px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.8);
+            position: relative;
+            overflow: hidden;
+            padding: 50px;
+        }
+        
+        /* Brocade texture overlay */
+        .brocade-texture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(139, 69, 19, 0.02) 2px, rgba(139, 69, 19, 0.02) 4px),
+                repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(139, 69, 19, 0.02) 2px, rgba(139, 69, 19, 0.02) 4px);
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        
+        /* Ornate border frame */
+        .border-frame {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 3px solid;
+            border-image: linear-gradient(135deg, #8B4513 0%, #DAA520 50%, #8B4513 100%) 1;
+            pointer-events: none;
+        }
+        
+        .border-frame::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 1px solid rgba(218, 165, 32, 0.4);
+        }
+        
+        /* Mughal corner patterns */
+        .corner-pattern {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at center, rgba(139, 69, 19, 0.15) 0%, transparent 70%);
+        }
+        
+        .corner-pattern::after {
+            content: '✦';
+            position: absolute;
+            font-size: 48px;
+            color: #DAA520;
+            opacity: 0.6;
+        }
+        
+        .corner-pattern.top-left { top: 30px; left: 30px; }
+        .corner-pattern.top-left::after { top: 20px; left: 20px; }
+        
+        .corner-pattern.top-right { top: 30px; right: 30px; transform: rotate(90deg); }
+        .corner-pattern.top-right::after { top: 20px; left: 20px; }
+        
+        .corner-pattern.bottom-left { bottom: 30px; left: 30px; transform: rotate(-90deg); }
+        .corner-pattern.bottom-left::after { top: 20px; left: 20px; }
+        
+        .corner-pattern.bottom-right { bottom: 30px; right: 30px; transform: rotate(180deg); }
+        .corner-pattern.bottom-right::after { top: 20px; left: 20px; }
+        
+        /* Jali pattern decorative elements */
+        .jali-pattern {
+            position: absolute;
+            top: 50%;
+            width: 60px;
+            height: 200px;
+            transform: translateY(-50%);
+            opacity: 0.15;
+        }
+        
+        .jali-left {
+            left: 40px;
+            background: 
+                radial-gradient(circle at 30px 20px, #8B4513 2px, transparent 2px),
+                radial-gradient(circle at 30px 60px, #8B4513 2px, transparent 2px),
+                radial-gradient(circle at 30px 100px, #8B4513 2px, transparent 2px),
+                radial-gradient(circle at 30px 140px, #8B4513 2px, transparent 2px),
+                radial-gradient(circle at 30px 180px, #8B4513 2px, transparent 2px);
+        }
+        
+        .jali-right {
+            right: 40px;
+            background: 
+                radial-gradient(circle at 30px 20px, #8B4513 2px, transparent 2px),
+                radial-gradient(circle at 30px 60px, #8B4513 2px, transparent 2px),
+                radial-gradient(circle at 30px 100px, #8B4513 2px, transparent 2px),
+                radial-gradient(circle at 30px 140px, #8B4513 2px, transparent 2px),
+                radial-gradient(circle at 30px 180px, #8B4513 2px, transparent 2px);
+        }
+        
+        /* Main content area */
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+        
+        /* Bismillah header */
+        .bismillah {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        
+        .bismillah-text {
+            font-family: 'Amiri', serif;
+            font-size: 32px;
+            color: #8B4513;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+        }
+        
+        /* Decorative divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 25px 0;
+        }
+        
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #DAA520, transparent);
+        }
+        
+        .divider-ornament {
+            margin: 0 15px;
+            color: #8B4513;
+            font-size: 20px;
+        }
+        
+        /* Typography styles */
+        .invitation-title {
+            text-align: center;
+            font-family: 'Amiri', serif;
+            font-size: 28px;
+            color: #8B4513;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .main-content {
+            text-align: center;
+            color: #3d2817;
+        }
+        
+        .invitation-header {
+            font-size: 16px;
+            color: #6b4423;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .groom-section {
+            margin: 30px 0;
+        }
+        
+        .groom-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: #8B4513;
+            margin: 15px 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .parent-name {
+            font-size: 20px;
+            color: #5c3d2e;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        
+        .bride-section {
+            margin: 30px 0;
+        }
+        
+        .bride-parent {
+            font-size: 20px;
+            color: #5c3d2e;
+            font-weight: 500;
+        }
+        
+        .ornamental-symbol {
+            font-size: 32px;
+            color: #DAA520;
+            margin: 20px 0;
+        }
+        
+        .date-section {
+            margin: 35px 0;
+            padding: 25px;
+            background: rgba(139, 69, 19, 0.05);
+            border-left: 3px solid #DAA520;
+            border-right: 3px solid #DAA520;
+        }
+        
+        .date-label {
+            font-size: 14px;
+            color: #6b4423;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        
+        .date-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: #8B4513;
+            font-weight: 600;
+        }
+        
+        .hosts-section {
+            margin: 30px 0;
+        }
+        
+        .hosts-label {
+            font-size: 14px;
+            color: #6b4423;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        
+        .host-name {
+            font-size: 20px;
+            color: #5c3d2e;
+            margin: 8px 0;
+            font-weight: 500;
+        }
+        
+        .venue-section {
+            margin: 35px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.03) 0%, rgba(218, 165, 32, 0.03) 100%);
+            border-radius: 4px;
+        }
+        
+        .venue-label {
+            font-size: 14px;
+            color: #6b4423;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        
+        .venue-address {
+            font-size: 17px;
+            color: #5c3d2e;
+            line-height: 1.8;
+        }
+        
+        .contact-section {
+            margin-top: 25px;
+        }
+        
+        .contact-label {
+            font-size: 13px;
+            color: #6b4423;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .contact-number {
+            font-size: 16px;
+            color: #5c3d2e;
+            margin: 5px 0;
+            letter-spacing: 1px;
+        }
+        
+        /* Glossy finish effect */
+        .glossy-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Floral motifs */
+        .floral-motif {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.1;
+            color: #8B4513;
+        }
+        
+        .floral-1 { top: 15%; left: 10%; transform: rotate(-15deg); }
+        .floral-2 { top: 15%; right: 10%; transform: rotate(15deg); }
+        .floral-3 { bottom: 15%; left: 10%; transform: rotate(15deg); }
+        .floral-4 { bottom: 15%; right: 10%; transform: rotate(-15deg); }
+        
+        @media (max-width: 768px) {
+            .invitation-card {
+                padding: 30px 25px;
+            }
+            
+            .groom-name {
+                font-size: 32px;
+            }
+            
+            .date-value {
+                font-size: 22px;
+            }
+            
+            .jali-pattern {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-container">
+        <div class="invitation-card">
+            <!-- Texture and overlays -->
+            <div class="brocade-texture"></div>
+            <div class="glossy-overlay"></div>
+            <div class="border-frame"></div>
+            
+            <!-- Corner patterns -->
+            <div class="corner-pattern top-left"></div>
+            <div class="corner-pattern top-right"></div>
+            <div class="corner-pattern bottom-left"></div>
+            <div class="corner-pattern bottom-right"></div>
+            
+            <!-- Jali patterns -->
+            <div class="jali-pattern jali-left"></div>
+            <div class="jali-pattern jali-right"></div>
+            
+            <!-- Floral motifs -->
+            <div class="floral-motif floral-1">❀</div>
+            <div class="floral-motif floral-2">❀</div>
+            <div class="floral-motif floral-3">❀</div>
+            <div class="floral-motif floral-4">❀</div>
+            
+            <!-- Main content -->
+            <div class="content-wrapper">
+                <!-- Bismillah -->
+                <div class="bismillah">
+                    <div class="bismillah-text">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+                </div>
+                
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-ornament">❋</div>
+                    <div class="divider-line"></div>
+                </div>
+                
+                <!-- Title -->
+                <div class="invitation-title">Wedding Invitation</div>
+                
+                <div class="main-content">
+                    <div class="invitation-header">Together with their families</div>
+                    
+                    <!-- Groom section -->
+                    <div class="groom-section">
+                        <div class="groom-name">Nizam Ullah</div>
+                        <div class="parent-name">Son of Haji Meer Qalam Khan</div>
+                    </div>
+                    
+                    <div class="ornamental-symbol">✦</div>
+                    
+                    <!-- Bride section -->
+                    <div class="bride-section">
+                        <div class="bride-parent">Daughter of Habib Noor</div>
+                    </div>
+                    
+                    <div class="divider">
+                        <div class="divider-line"></div>
+                        <div class="divider-ornament">❋</div>
+                        <div class="divider-line"></div>
+                    </div>
+                    
+                    <!-- Date -->
+                    <div class="date-section">
+                        <div class="date-label">Date of Celebration</div>
+                        <div class="date-value">21st November, 2025</div>
+                    </div>
+                    
+                    <!-- Hosts -->
+                    <div class="hosts-section">
+                        <div class="hosts-label">Graciously Hosted By</div>
+                        <div class="host-name">Haji Meer Qalam Khan</div>
+                        <div class="host-name">Amir Ahmad Khan</div>
+                    </div>
+                    
+                    <div class="divider">
+                        <div class="divider-line"></div>
+                        <div class="divider-ornament">❋</div>
+                        <div class="divider-line"></div>
+                    </div>
+                    
+                    <!-- Venue -->
+                    <div class="venue-section">
+                        <div class="venue-label">Venue</div>
+                        <div class="venue-address">
+                            University Road, Nawab Adda<br>
+                            Sada Bahar Colony<br>
+                            Nazd Chishti Madrasa<br>
+                            Dera Ismail Khan
+                        </div>
+                        
+                        <div class="contact-section">
+                            <div class="contact-label">Contact</div>
+                            <div class="contact-number">0314 197 0070</div>
+                            <div class="contact-number">0335 609 2332</div>
+                        </div>
+                    </div>
+                    
+                    <div class="ornamental-symbol" style="font-size: 24px; margin-top: 25px;">❋ ✦ ❋</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
