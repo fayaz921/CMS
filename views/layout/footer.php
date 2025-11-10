@@ -193,6 +193,7 @@
         },
         colors: ['#DCE6EC'],
       };
+
       const sparkline1 = new ApexCharts(document.querySelector('#sparkline-1'), option_sparkline1);
       sparkline1.render();
 
