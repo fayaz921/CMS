@@ -6,7 +6,6 @@
     <title>Document</title>
     <link  href="./assets/css/adminlte.css"><link>
 </head>
-
 <body>
     <?php
     include_once "./views/layout/header.php";
