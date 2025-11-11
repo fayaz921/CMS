@@ -1,5 +1,5 @@
-<?php 
- session_start(); // Start the session to manage user login state
+<?php
+session_start(); // Start the session to manage user login state
 ?>
 
 <!doctype html>
@@ -95,7 +95,7 @@
                     <!--end::Row-->
                 </form>
                 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Get form data
                     $email = $_POST['email'];
                     $pass = $_POST['pass'];
@@ -106,10 +106,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         include "./config/db.php";
                         $sql = "SELECT * FROM admin WHERE email= $email AND password=	$pass";
                         $res = mysqli_query($conn, $sql);
-                        if($row = mysqli_num_rows($res)>0)
-                        {
-                            while(mysqli_fetch_assoc($res))
-                            {
+                        if ($row = mysqli_num_rows($res) > 0) {
+                            while (mysqli_fetch_assoc($res)) {
                                 header('location: /CMS/index.php');
                                 exit();
                             }
