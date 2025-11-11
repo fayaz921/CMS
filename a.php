@@ -5,7 +5,6 @@ session_start(); // Start the session to manage user login state
 <!doctype html>
 <html lang="en">
 <!--begin::Head-->
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title> Login</title>
