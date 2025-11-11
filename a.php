@@ -1,6 +1,6 @@
 <?php 
  session_start(); // Start the session to manage user login state
-   ?>
+?>
 
 <!doctype html>
 <html lang="en">
