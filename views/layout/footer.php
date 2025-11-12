@@ -148,6 +148,7 @@
         sales_chart_options,
       );
       sales_chart.render();
+      
     </script>
     <!-- jsvectormap -->
     <script
