@@ -55,7 +55,6 @@ session_start(); // Start the session to manage user login state
 </head>
 <!--end::Head-->
 <!--begin::Body-->
-
 <body class="login-page bg-body-secondary">
     <div class="login-box">
         <div class="login-logo">
