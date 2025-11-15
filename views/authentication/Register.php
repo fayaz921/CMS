@@ -60,13 +60,13 @@
   <body class="register-page bg-body-secondary">
     <div class="register-box">
       <div class="register-logo">
-        <a href="../index2.html"><b>Admin</b>LTE</a>
+        <a href="/CMS/index2.html"><b>Admin</b>LTE</a>
       </div>
       <!-- /.register-logo -->
       <div class="card">
         <div class="card-body register-card-body">
           <p class="register-box-msg">Register a new membership</p>
-          <form action="../index3.html" method="post">
+          <form action="/CMS/index3.html" method="post">
             <div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="Full Name" />
               <div class="input-group-text"><span class="bi bi-person"></span></div>
@@ -110,7 +110,7 @@
           </div>
           <!-- /.social-auth-links -->
           <p class="mb-0">
-            <a href="login.html" class="text-center"> I already have a membership </a>
+            <a href="/CMS/views/authentication/Login.php" class="text-center"> I already have a membership </a>
           </p>
         </div>
         <!-- /.register-card-body -->
@@ -133,7 +133,7 @@
       crossorigin="anonymous"
     ></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="../js/adminlte.js"></script>
+    <script src="/CMS/assets/js/adminlte.js"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
       const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
