@@ -1,69 +1,66 @@
 <?php
 session_start();
 
-/*
- Fix: only require DB on POST and use the correct relative path.
- __DIR__ is ...\views\authentication, so ../../config/database.php points to c:\xampp\htdocs\CMS\config\database.php
-*/
+// prepare variables for form re-population and errors
+$errors = [];
+$old = [
+    'name'=>'','father_name'=>'','registration_no'=>'','class'=>'','section'=>'',
+    'gender'=>'','contact'=>'','address'=>'','email'=>''
+];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // require DB config (adjust path if your config is located elsewhere)
     require_once __DIR__ . '/../../config/database.php';
 
-    // expected fields in your students table
-    $input = [];
-    $fields = ['name','father_name','registration_no','class','section','gender','contact','address','email'];
-    foreach ($fields as $f) {
-        $input[$f] = isset($_POST[$f]) ? trim($_POST[$f]) : '';
-    }
-
-    // basic validation
-    $errors = [];
-    if ($input['name'] === '') $errors[] = 'Student name is required.';
-    if ($input['registration_no'] === '') $errors[] = 'Registration number is required.';
-    if ($input['class'] === '') $errors[] = 'Class is required.';
-    if ($input['section'] === '') $errors[] = 'Section is required.';
-    if ($input['gender'] === '') $errors[] = 'Gender is required.';
-    if ($input['contact'] === '') $errors[] = 'Contact is required.';
-    if ($input['email'] === '' || !filter_var($input['email'], FILTER_VALIDATE_EMAIL)) $errors[] = 'Valid email is required.';
-
-    if (!empty($errors)) {
-        $msg = urlencode(implode(' | ', $errors));
-        header("Location: /CMS/views/authentication/Register.php?error={$msg}");
-        exit;
-    }
-
-    // insert using prepared statement
-    $stmt = $mysqli->prepare("
-        INSERT INTO students
-          (name, father_name, registration_no, class, section, gender, contact, address, email)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ");
-    if (!$stmt) {
-        header('Location: /CMS/views/authentication/Register.php?error=' . urlencode('Prepare failed.'));
-        exit;
-    }
-
-    $stmt->bind_param(
-        'sssssssss',
-        $input['name'],
-        $input['father_name'],
-        $input['registration_no'],
-        $input['class'],
-        $input['section'],
-        $input['gender'],
-        $input['contact'],
-        $input['address'],
-        $input['email']
-    );
-
-    $ok = $stmt->execute();
-    $stmt->close();
-
-    if ($ok) {
-        header('Location: /CMS/views/authentication/Register.php?success=1');
-        exit;
+    if (!isset($mysqli) || !($mysqli instanceof mysqli)) {
+        $errors[] = 'Database connection error.';
     } else {
-        header('Location: /CMS/views/authentication/Register.php?error=' . urlencode('Insert failed.'));
-        exit;
+        // collect & trim inputs
+        $fields = array_keys($old);
+        foreach ($fields as $f) {
+            $old[$f] = isset($_POST[$f]) ? trim($_POST[$f]) : '';
+        }
+
+        // validation
+        if ($old['name'] === '') $errors[] = 'Student name is required.';
+        if ($old['registration_no'] === '') $errors[] = 'Registration number is required.';
+        if ($old['class'] === '') $errors[] = 'Class is required.';
+        if ($old['section'] === '') $errors[] = 'Section is required.';
+        if ($old['gender'] === '') $errors[] = 'Gender is required.';
+        if ($old['contact'] === '') $errors[] = 'Contact is required.';
+        if ($old['email'] === '' || !filter_var($old['email'], FILTER_VALIDATE_EMAIL)) $errors[] = 'Valid email is required.';
+
+        if (empty($errors)) {
+            // prepared insert using variables
+            $sql = "INSERT INTO students (name, father_name, registration_no, class, section, gender, contact, address, email)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $mysqli->prepare($sql);
+            if (!$stmt) {
+                $errors[] = 'Prepare failed: ' . $mysqli->error;
+            } else {
+                $stmt->bind_param(
+                    'sssssssss',
+                    $old['name'],
+                    $old['father_name'],
+                    $old['registration_no'],
+                    $old['class'],
+                    $old['section'],
+                    $old['gender'],
+                    $old['contact'],
+                    $old['address'],
+                    $old['email']
+                );
+                $ok = $stmt->execute();
+                if ($ok) {
+                    // success: redirect to same page with message (avoid re-post on refresh)
+                    header('Location: /CMS/views/authentication/Register.php?success=1');
+                    exit;
+                } else {
+                    $errors[] = 'Insert failed: ' . $stmt->error;
+                }
+                $stmt->close();
+            }
+        }
     }
 }
 ?>
@@ -131,7 +128,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="register-logo">
         <a href="/CMS/index.php"><b>Admin</b>LTE</a>
       </div>
-      <!-- /.register-logo -->
       <div class="card">
         <div class="card-body register-card-body">
           <p class="register-box-msg">Register a new student</p>
@@ -139,58 +135,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php
 if (isset($_GET['success'])) {
     echo '<div class="alert alert-success">Student registered successfully.</div>';
-} elseif (isset($_GET['error'])) {
-    echo '<div class="alert alert-danger">' . htmlspecialchars(urldecode($_GET['error'])) . '</div>';
+} elseif (!empty($errors)) {
+    echo '<div class="alert alert-danger"><ul class="mb-0">';
+    foreach ($errors as $e) {
+        echo '<li>' . htmlspecialchars($e) . '</li>';
+    }
+    echo '</ul></div>';
 }
 ?>
 
-          <form action="/CMS/actions/register_student.php" method="post" novalidate>
+          <form action="/CMS/views/authentication/Register.php" method="post" novalidate>
             <div class="input-group mb-2">
-              <input name="name" type="text" class="form-control" placeholder="Full Name" required />
+              <input name="name" type="text" class="form-control" placeholder="Full Name" required value="<?php echo htmlspecialchars($old['name']); ?>" />
               <div class="input-group-text"><span class="bi bi-person"></span></div>
             </div>
 
             <div class="input-group mb-2">
-              <input name="father_name" type="text" class="form-control" placeholder="Father's Name" />
+              <input name="father_name" type="text" class="form-control" placeholder="Father's Name" value="<?php echo htmlspecialchars($old['father_name']); ?>" />
               <div class="input-group-text"><span class="bi bi-person-badge"></span></div>
             </div>
 
             <div class="input-group mb-2">
-              <input name="registration_no" type="text" class="form-control" placeholder="Registration No" required />
+              <input name="registration_no" type="text" class="form-control" placeholder="Registration No" required value="<?php echo htmlspecialchars($old['registration_no']); ?>" />
               <div class="input-group-text"><span class="bi bi-hash"></span></div>
             </div>
 
             <div class="row g-2 mb-2">
               <div class="col">
-                <input name="class" type="text" class="form-control" placeholder="Class" required />
+                <input name="class" type="text" class="form-control" placeholder="Class" required value="<?php echo htmlspecialchars($old['class']); ?>" />
               </div>
               <div class="col">
-                <input name="section" type="text" class="form-control" placeholder="Section" required />
+                <input name="section" type="text" class="form-control" placeholder="Section" required value="<?php echo htmlspecialchars($old['section']); ?>" />
               </div>
             </div>
 
             <div class="input-group mb-2">
               <select name="gender" class="form-select" required>
                 <option value="">Select gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
+                <option value="Male" <?php echo ($old['gender']==='Male')?'selected':''; ?>>Male</option>
+                <option value="Female" <?php echo ($old['gender']==='Female')?'selected':''; ?>>Female</option>
+                <option value="Other" <?php echo ($old['gender']==='Other')?'selected':''; ?>>Other</option>
               </select>
               <div class="input-group-text"><span class="bi bi-gender-ambiguous"></span></div>
             </div>
 
             <div class="input-group mb-2">
-              <input name="contact" type="text" class="form-control" placeholder="Contact" required />
+              <input name="contact" type="text" class="form-control" placeholder="Contact" required value="<?php echo htmlspecialchars($old['contact']); ?>" />
               <div class="input-group-text"><span class="bi bi-telephone"></span></div>
             </div>
 
             <div class="input-group mb-2">
-              <input name="email" type="email" class="form-control" placeholder="Email" required />
+              <input name="email" type="email" class="form-control" placeholder="Email" required value="<?php echo htmlspecialchars($old['email']); ?>" />
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
             </div>
 
             <div class="input-group mb-3">
-              <textarea name="address" class="form-control" placeholder="Address" rows="2"></textarea>
+              <textarea name="address" class="form-control" placeholder="Address" rows="2"><?php echo htmlspecialchars($old['address']); ?></textarea>
             </div>
 
             <div class="row">
@@ -214,10 +214,10 @@ if (isset($_GET['success'])) {
             <a href="/CMS/views/authentication/Login.php" class="text-center"> I already have a membership </a>
           </p>
         </div>
-        <!-- /.register-card-body -->
       </div>
     </div>
-    <!-- /.register-box -->
+
+    <!-- scripts -->
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script
       src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
