@@ -86,8 +86,8 @@
                 <i class="bi bi-list"></i>
               </a>
             </li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
+            <li class="nav-item d-none d-md-block"><a href="/CMS/index.html" class="nav-link">Home</a></li>
+            <li class="nav-item d-none d-md-block"><a href="/CMS/contact.html" class="nav-link">Contact</a></li>
           </ul>
           <!--end::Start Navbar Links-->
           <!--begin::End Navbar Links-->
@@ -279,7 +279,7 @@
         <!--begin::Sidebar Brand-->
         <div class="sidebar-brand">
           <!--begin::Brand Link-->
-          <a href="./index.html" class="brand-link">
+          <a href="/CMS/index.html" class="brand-link">
             <!--begin::Brand Image-->
             <img
               src="/CMS/assets/img/AdminLTELogo.png"
@@ -316,19 +316,19 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="./index.html" class="nav-link active">
+                    <a href="/CMS/index.html" class="nav-link active">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Dashboard v1</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./index2.html" class="nav-link">
+                    <a href="/CMS/index2.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Dashboard v2</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./index3.html" class="nav-link">
+                    <a href="/CMS/index3.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Dashboard v3</p>
                     </a>
@@ -336,7 +336,7 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a href="./generate/theme.html" class="nav-link">
+                <a href="/CMS/generate/theme.html" class="nav-link">
                   <i class="nav-icon bi bi-palette"></i>
                   <p>Theme Generate</p>
                 </a>
@@ -351,19 +351,19 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="./widgets/small-box.html" class="nav-link">
+                    <a href="/CMS/widgets/small-box.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Small Box</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./widgets/info-box.html" class="nav-link">
+                    <a href="/CMS/widgets/info-box.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>info Box</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./widgets/cards.html" class="nav-link">
+                    <a href="/CMS/widgets/cards.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Cards</p>
                     </a>
@@ -381,61 +381,61 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="./layout/unfixed-sidebar.html" class="nav-link">
+                    <a href="/CMS/layout/unfixed-sidebar.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Default Sidebar</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./layout/fixed-sidebar.html" class="nav-link">
+                    <a href="/CMS/layout/fixed-sidebar.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Fixed Sidebar</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./layout/fixed-header.html" class="nav-link">
+                    <a href="/CMS/layout/fixed-header.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Fixed Header</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./layout/fixed-footer.html" class="nav-link">
+                    <a href="/CMS/layout/fixed-footer.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Fixed Footer</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./layout/fixed-complete.html" class="nav-link">
+                    <a href="/CMS/layout/fixed-complete.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Fixed Complete</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./layout/layout-custom-area.html" class="nav-link">
+                    <a href="/CMS/layout/layout-custom-area.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Layout <small>+ Custom Area </small></p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./layout/sidebar-mini.html" class="nav-link">
+                    <a href="/CMS/layout/sidebar-mini.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Sidebar Mini</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./layout/collapsed-sidebar.html" class="nav-link">
+                    <a href="/CMS/layout/collapsed-sidebar.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Sidebar Mini <small>+ Collapsed</small></p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./layout/logo-switch.html" class="nav-link">
+                    <a href="/CMS/layout/logo-switch.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Sidebar Mini <small>+ Logo Switch</small></p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./layout/layout-rtl.html" class="nav-link">
+                    <a href="/CMS/layout/layout-rtl.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Layout RTL</p>
                     </a>
@@ -452,19 +452,19 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="./UI/general.html" class="nav-link">
+                    <a href="/CMS/UI/general.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>General</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./UI/icons.html" class="nav-link">
+                    <a href="/CMS/UI/icons.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Icons</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./UI/timeline.html" class="nav-link">
+                    <a href="/CMS/UI/timeline.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Timeline</p>
                     </a>
@@ -481,7 +481,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="./forms/general.html" class="nav-link">
+                    <a href="/CMS/forms/general.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>General Elements</p>
                     </a>
@@ -498,7 +498,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="./tables/simple.html" class="nav-link">
+                    <a href="/CMS/tables/simple.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Simple Tables</p>
                     </a>
@@ -525,13 +525,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
-                        <a href="./examples/login.html" class="nav-link">
+                        <a href="/CMS/examples/login.html" class="nav-link">
                           <i class="nav-icon bi bi-circle"></i>
                           <p>Login</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="./examples/register.html" class="nav-link">
+                        <a href="/CMS/examples/register.html" class="nav-link">
                           <i class="nav-icon bi bi-circle"></i>
                           <p>Register</p>
                         </a>
@@ -548,13 +548,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                       <li class="nav-item">
-                        <a href="./examples/login-v2.html" class="nav-link">
+                        <a href="/CMS/examples/login-v2.html" class="nav-link">
                           <i class="nav-icon bi bi-circle"></i>
                           <p>Login</p>
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="./examples/register-v2.html" class="nav-link">
+                        <a href="/CMS/examples/register-v2.html" class="nav-link">
                           <i class="nav-icon bi bi-circle"></i>
                           <p>Register</p>
                         </a>
@@ -562,7 +562,7 @@
                     </ul>
                   </li>
                   <li class="nav-item">
-                    <a href="./examples/lockscreen.html" class="nav-link">
+                    <a href="/CMS/examples/lockscreen.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Lockscreen</p>
                     </a>
@@ -571,19 +571,19 @@
               </li>
               <li class="nav-header">DOCUMENTATIONS</li>
               <li class="nav-item">
-                <a href="./docs/introduction.html" class="nav-link">
+                <a href="/CMS/docs/introduction.html" class="nav-link">
                   <i class="nav-icon bi bi-download"></i>
                   <p>Installation</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./docs/layout.html" class="nav-link">
+                <a href="/CMS/docs/layout.html" class="nav-link">
                   <i class="nav-icon bi bi-grip-horizontal"></i>
                   <p>Layout</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./docs/color-mode.html" class="nav-link">
+                <a href="/CMS/docs/color-mode.html" class="nav-link">
                   <i class="nav-icon bi bi-star-half"></i>
                   <p>Color Mode</p>
                 </a>
@@ -598,13 +598,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="./docs/components/main-header.html" class="nav-link">
+                    <a href="/CMS/docs/components/main-header.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Main Header</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="./docs/components/main-sidebar.html" class="nav-link">
+                    <a href="/CMS/docs/components/main-sidebar.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Main Sidebar</p>
                     </a>
@@ -621,7 +621,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="./docs/javascript/treeview.html" class="nav-link">
+                    <a href="/CMS/docs/javascript/treeview.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Treeview</p>
                     </a>
@@ -629,25 +629,25 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a href="./docs/browser-support.html" class="nav-link">
+                <a href="/CMS/docs/browser-support.html" class="nav-link">
                   <i class="nav-icon bi bi-browser-edge"></i>
                   <p>Browser Support</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./docs/how-to-contribute.html" class="nav-link">
+                <a href="/CMS/docs/how-to-contribute.html" class="nav-link">
                   <i class="nav-icon bi bi-hand-thumbs-up-fill"></i>
                   <p>How To Contribute</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./docs/faq.html" class="nav-link">
+                <a href="/CMS/docs/faq.html" class="nav-link">
                   <i class="nav-icon bi bi-question-circle-fill"></i>
                   <p>FAQ</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./docs/license.html" class="nav-link">
+                <a href="/CMS/docs/license.html" class="nav-link">
                   <i class="nav-icon bi bi-patch-check-fill"></i>
                   <p>License</p>
                 </a>
@@ -743,3 +743,23 @@
         <!--end::Sidebar Wrapper-->
       </aside>
       <!--end::Sidebar-->
+    </div>
+    <!--end::App Wrapper-->
+
+    <!-- Add these scripts (order matters) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/CMS/assets/js/adminlte.js"></script>
+
+  </body>
+</html>
