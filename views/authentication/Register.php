@@ -10,7 +10,12 @@ $old = [
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // require DB config (adjust path if your config is located elsewhere)
-    require_once __DIR__ . '/../../config/database.php';
+    $dbPath = rtrim($_SERVER['DOCUMENT_ROOT'], DIRECTORY_SEPARATOR) . '/CMS/config/database.php';
+    if (!file_exists($dbPath)) {
+        // helpful error (do not reveal sensitive info in production)
+        die('Missing configuration file: ' . htmlspecialchars($dbPath));
+    }
+    require_once $dbPath;
 
     if (!isset($mysqli) || !($mysqli instanceof mysqli)) {
         $errors[] = 'Database connection error.';
