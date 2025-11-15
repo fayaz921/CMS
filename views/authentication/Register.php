@@ -1,3 +1,72 @@
+<?php
+session_start();
+
+/*
+ Fix: only require DB on POST and use the correct relative path.
+ __DIR__ is ...\views\authentication, so ../../config/database.php points to c:\xampp\htdocs\CMS\config\database.php
+*/
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once __DIR__ . '/../../config/database.php';
+
+    // expected fields in your students table
+    $input = [];
+    $fields = ['name','father_name','registration_no','class','section','gender','contact','address','email'];
+    foreach ($fields as $f) {
+        $input[$f] = isset($_POST[$f]) ? trim($_POST[$f]) : '';
+    }
+
+    // basic validation
+    $errors = [];
+    if ($input['name'] === '') $errors[] = 'Student name is required.';
+    if ($input['registration_no'] === '') $errors[] = 'Registration number is required.';
+    if ($input['class'] === '') $errors[] = 'Class is required.';
+    if ($input['section'] === '') $errors[] = 'Section is required.';
+    if ($input['gender'] === '') $errors[] = 'Gender is required.';
+    if ($input['contact'] === '') $errors[] = 'Contact is required.';
+    if ($input['email'] === '' || !filter_var($input['email'], FILTER_VALIDATE_EMAIL)) $errors[] = 'Valid email is required.';
+
+    if (!empty($errors)) {
+        $msg = urlencode(implode(' | ', $errors));
+        header("Location: /CMS/views/authentication/Register.php?error={$msg}");
+        exit;
+    }
+
+    // insert using prepared statement
+    $stmt = $mysqli->prepare("
+        INSERT INTO students
+          (name, father_name, registration_no, class, section, gender, contact, address, email)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ");
+    if (!$stmt) {
+        header('Location: /CMS/views/authentication/Register.php?error=' . urlencode('Prepare failed.'));
+        exit;
+    }
+
+    $stmt->bind_param(
+        'sssssssss',
+        $input['name'],
+        $input['father_name'],
+        $input['registration_no'],
+        $input['class'],
+        $input['section'],
+        $input['gender'],
+        $input['contact'],
+        $input['address'],
+        $input['email']
+    );
+
+    $ok = $stmt->execute();
+    $stmt->close();
+
+    if ($ok) {
+        header('Location: /CMS/views/authentication/Register.php?success=1');
+        exit;
+    } else {
+        header('Location: /CMS/views/authentication/Register.php?error=' . urlencode('Insert failed.'));
+        exit;
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
   <!--begin::Head-->
@@ -60,56 +129,88 @@
   <body class="register-page bg-body-secondary">
     <div class="register-box">
       <div class="register-logo">
-        <a href="/CMS/index2.html"><b>Admin</b>LTE</a>
+        <a href="/CMS/index.php"><b>Admin</b>LTE</a>
       </div>
       <!-- /.register-logo -->
       <div class="card">
         <div class="card-body register-card-body">
-          <p class="register-box-msg">Register a new membership</p>
-          <form action="/CMS/index3.html" method="post">
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Full Name" />
+          <p class="register-box-msg">Register a new student</p>
+
+<?php
+if (isset($_GET['success'])) {
+    echo '<div class="alert alert-success">Student registered successfully.</div>';
+} elseif (isset($_GET['error'])) {
+    echo '<div class="alert alert-danger">' . htmlspecialchars(urldecode($_GET['error'])) . '</div>';
+}
+?>
+
+          <form action="/CMS/actions/register_student.php" method="post" novalidate>
+            <div class="input-group mb-2">
+              <input name="name" type="text" class="form-control" placeholder="Full Name" required />
               <div class="input-group-text"><span class="bi bi-person"></span></div>
             </div>
-            <div class="input-group mb-3">
-              <input type="email" class="form-control" placeholder="Email" />
+
+            <div class="input-group mb-2">
+              <input name="father_name" type="text" class="form-control" placeholder="Father's Name" />
+              <div class="input-group-text"><span class="bi bi-person-badge"></span></div>
+            </div>
+
+            <div class="input-group mb-2">
+              <input name="registration_no" type="text" class="form-control" placeholder="Registration No" required />
+              <div class="input-group-text"><span class="bi bi-hash"></span></div>
+            </div>
+
+            <div class="row g-2 mb-2">
+              <div class="col">
+                <input name="class" type="text" class="form-control" placeholder="Class" required />
+              </div>
+              <div class="col">
+                <input name="section" type="text" class="form-control" placeholder="Section" required />
+              </div>
+            </div>
+
+            <div class="input-group mb-2">
+              <select name="gender" class="form-select" required>
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="input-group-text"><span class="bi bi-gender-ambiguous"></span></div>
+            </div>
+
+            <div class="input-group mb-2">
+              <input name="contact" type="text" class="form-control" placeholder="Contact" required />
+              <div class="input-group-text"><span class="bi bi-telephone"></span></div>
+            </div>
+
+            <div class="input-group mb-2">
+              <input name="email" type="email" class="form-control" placeholder="Email" required />
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
             </div>
+
             <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Password" />
-              <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
+              <textarea name="address" class="form-control" placeholder="Address" rows="2"></textarea>
             </div>
-            <!--begin::Row-->
+
             <div class="row">
               <div class="col-8">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                  <label class="form-check-label" for="flexCheckDefault">
+                  <input class="form-check-input" type="checkbox" value="1" id="agreeTerms" name="agreeTerms" required />
+                  <label class="form-check-label" for="agreeTerms">
                     I agree to the <a href="#">terms</a>
                   </label>
                 </div>
               </div>
-              <!-- /.col -->
               <div class="col-4">
                 <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-primary">Sign In</button>
+                  <button type="submit" class="btn btn-primary">Register</button>
                 </div>
               </div>
-              <!-- /.col -->
             </div>
-            <!--end::Row-->
           </form>
-          <div class="social-auth-links text-center mb-3 d-grid gap-2">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-primary">
-              <i class="bi bi-facebook me-2"></i> Sign in using Facebook
-            </a>
-            <a href="#" class="btn btn-danger">
-              <i class="bi bi-google me-2"></i> Sign in using Google+
-            </a>
-          </div>
-          <!-- /.social-auth-links -->
-          <p class="mb-0">
+
+          <p class="mb-0 mt-3">
             <a href="/CMS/views/authentication/Login.php" class="text-center"> I already have a membership </a>
           </p>
         </div>
